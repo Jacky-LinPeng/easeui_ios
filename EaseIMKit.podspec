@@ -15,11 +15,12 @@ Pod::Spec.new do |s|
     s.source = { :git => 'https://github.com/easemob/easeui_ios.git', :tag => 'EaseIMKit_4.2.0'}
     s.frameworks = 'UIKit'
     s.libraries = 'stdc++'
-    s.ios.deployment_target = '11.0'
+    s.ios.deployment_target = '14.0'
+    s.swift_version = '5.0'
     s.source_files = [
         'EaseIMKit/EaseIMKit/EaseIMKit.h',
         'EaseIMKit/EaseIMKit/EasePublicHeaders.h',
-        'EaseIMKit/EaseIMKit/**/*.{h,m,mm}'
+        'EaseIMKit/EaseIMKit/**/*.{h,m,mm,swift}'
     ]
     s.public_header_files = [
         'EaseIMKit/EaseIMKit/EaseIMKit.h',
@@ -63,7 +64,9 @@ Pod::Spec.new do |s|
                             }
     s.user_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
 
-    s.dependency 'HyphenateChat', '>= 4.1.0'
+    s.dependency 'HyphenateChat', '>= 4.2.0'
     s.dependency 'EMVoiceConvert', '0.1.0'
+    s.dependency 'OpenAISwift'
+    s.dependency 'lottie-ios'
 
 end

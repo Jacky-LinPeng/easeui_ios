@@ -568,11 +568,16 @@
         [weakself.chatBar.textView becomeFirstResponder];
     }];
     
+    EaseExtMenuModel *aiModel = [[EaseExtMenuModel alloc]initWithData:[UIImage easeUIImageNamed:@"ai_text"] funcDesc:@"AI智答" handle:^(NSString * _Nonnull itemDesc, BOOL isExecuted) {
+        EaseMessageModel *model = [weakself.dataArray objectAtIndex:weakself.longPressIndexPath.row];
+        weakself.chatBar.autoMessage = model;
+    }];
+    
     NSMutableArray<EaseExtMenuModel*> *extMenuArray = [[NSMutableArray<EaseExtMenuModel*> alloc]init];
     BOOL isCustomCell = NO;
+    [extMenuArray addObject:aiModel];
     [extMenuArray addObject:copyExtModel];
     [extMenuArray addObject:deleteExtModel];
-    
     if (![aCell isKindOfClass:[EaseMessageCell class]]) {
         isCustomCell = YES;
         _currentLongPressCustomCell = aCell;

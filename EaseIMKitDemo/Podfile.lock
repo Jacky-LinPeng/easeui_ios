@@ -1,0 +1,43 @@
+PODS:
+  - EaseIMKit (4.2.0):
+    - EMVoiceConvert (= 0.1.0)
+    - HyphenateChat (>= 4.2.0)
+    - OpenAISwift
+  - EMVoiceConvert (0.1.0)
+  - HyphenateChat (4.2.0)
+  - Masonry (1.1.0)
+  - OpenAISwift (1.3.0)
+
+DEPENDENCIES:
+  - EaseIMKit (from `../`)
+  - HyphenateChat (= 4.2.0)
+  - Masonry
+  - "OpenAISwift (from `git@github.com:Jacky-LinPeng/OpenAISwift.git`)"
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - EMVoiceConvert
+    - HyphenateChat
+    - Masonry
+
+EXTERNAL SOURCES:
+  EaseIMKit:
+    :path: "../"
+  OpenAISwift:
+    :git: "git@github.com:Jacky-LinPeng/OpenAISwift.git"
+
+CHECKOUT OPTIONS:
+  OpenAISwift:
+    :commit: c36943c3fae758f7623157c3b33035e109d33a17
+    :git: "git@github.com:Jacky-LinPeng/OpenAISwift.git"
+
+SPEC CHECKSUMS:
+  EaseIMKit: a169f28b3d9c9e0a5f535ec3fed3bddae366e21e
+  EMVoiceConvert: 32a0eaada94d93c151a5abd53ee174cd4e63b01f
+  HyphenateChat: e43d1ec9ccf404eeb2ee7d3265cd12a4e83f0d3a
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  OpenAISwift: 9447a77c8098754f5fa61b9f6e8ab9e2ce592fbd
+
+PODFILE CHECKSUM: 5b163965b8bf162ac0fc681989e53158e274b900
+
+COCOAPODS: 1.12.1

@@ -1,12 +1,13 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '10.0'
+platform :ios, '13.0'
 source 'https://github.com/CocoaPods/Specs.git'
 workspace 'EaseIMKitDemo.xcworkspace'
 
 target 'EaseIMKitDemo' do
-  pod 'HyphenateChat','3.9.3'
+  pod 'HyphenateChat','4.2.0'
   pod 'Masonry'
   pod 'EaseIMKit',  :path => "../"
+  pod 'OpenAISwift', :git => 'git@github.com:Jacky-LinPeng/OpenAISwift.git'
 end
 
 

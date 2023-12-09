@@ -10,6 +10,7 @@
 #import "UIImage+EaseUI.h"
 #import "UIColor+EaseUI.h"
 #import "EMChatMessage+EaseUIExt.h"
+#import <EaseIMKit/EaseIMKit-Swift.h>
 
 #define kTextViewMinHeight 32
 #define kTextViewMaxHeight 80
@@ -97,7 +98,7 @@
         make.top.equalTo(@12);
         make.bottom.equalTo(@-12);
         make.right.equalTo(@-16);
-        make.height.greaterThanOrEqualTo(@16);
+        make.height.greaterThanOrEqualTo(@44);
     }];
     
     self.audioButton = [[UIButton alloc] init];
@@ -525,9 +526,61 @@
         self.quoteLabel.text = [NSString stringWithFormat:@"%@:%@", nickname, [EaseEmojiHelper convertEmoji:content]];
         self.quoteView.hidden = NO;
         [self.quoteView Ease_updateConstraints:^(EaseConstraintMaker *make) {
-            make.height.equalTo(@44);
+            CGSize size = [self.quoteLabel sizeThatFits:CGSizeMake(UIScreen.mainScreen.bounds.size.width - 40, 200)];
+            CGFloat height = MAX(size.height + 10, 44);
+            make.height.equalTo(@(height));
         }];
     }
 }
 
+- (void)setAutoMessage:(EaseMessageModel *)autoMessage
+{
+    _autoMessage = autoMessage;
+    NSString *content = autoMessage.message.easeUI_quoteShowText;
+    NSString *text = [EaseEmojiHelper convertEmoji:content];
+    EaseOpenAISwiftHelper *shared = [EaseOpenAISwiftHelper shareHelper];
+    //TODO: 必须自行配置 GPT4.0 的api key！！！
+    shared.baseURL = @"https://api.openai.com";
+    shared.authToken = @"sk-xxxxxx";
+
+    UIView *maskView = [[UIView alloc] initWithFrame:UIScreen.mainScreen.bounds];
+    maskView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+    [[UIApplication sharedApplication].keyWindow addSubview:maskView];
+    maskView.alpha = 0;
+    [UIView animateWithDuration:0.25 animations:^{
+        maskView.alpha = 1;
+    } completion:^(BOOL finished) {
+    }];
+    
+    
+    GLLOTAnimationView *loadingView = [[GLLOTAnimationView alloc] initWithFrame:CGRectMake(100, 200, 200, 200) name:@"ai_generate"];
+    loadingView.loopAnimation  = YES;
+    [loadingView play];
+    
+    [maskView addSubview:loadingView];
+    [loadingView Ease_makeConstraints:^(EaseConstraintMaker *make) {
+        make.center.offset(0);
+        make.width.height.equalTo(@200);
+    }];
+    
+    
+    [shared sendChatWithQuery:text completion:^(NSString * result, NSError * _Nullable) {
+        if (result.length == 0) {
+            result = @"";
+        }
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.textView becomeFirstResponder];
+            self.textView.text = result;
+            [self textViewDidChange: self.textView];
+            [UIView animateWithDuration:0.25 animations:^{
+                maskView.alpha = 0;
+            } completion:^(BOOL finished) {
+                [maskView removeFromSuperview];
+            }];
+        });
+    } completionHandler:^{
+        
+    }];
+    
+}
 @end
