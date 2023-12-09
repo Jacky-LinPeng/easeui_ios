@@ -16,6 +16,7 @@
 #import "EaseAlertController.h"
 #import "EaseAlertView.h"
 #import "UIViewController+HUD.h"
+#import "EaseCustomAIAlertView.h"
 
 /**
     媒体库
@@ -247,6 +248,24 @@ static const void *imagePickerKey = &imagePickerKey;
     } else {
         [EaseAlertController showErrorAlert:EaseLocalizableString(@"LocationPermissionDisabled", nil)];
     }
+}
+
+- (void)chatToolBarAIAction {
+    EaseCustomAIAlertView *alert = [EaseCustomAIAlertView new];
+    alert.frame = [[UIScreen mainScreen] bounds];
+    [UIApplication.sharedApplication.keyWindow addSubview:alert];
+    alert.alpha = 0;
+    [UIView animateWithDuration:0.25 animations:^{
+        alert.alpha = 1;
+    }];
+    __weak EaseCustomAIAlertView *weakAlert = alert;
+    [alert setBlock:^(NSData * _Nonnull imagedata) {
+        if (imagedata) {
+            EMImageMessageBody *body = [[EMImageMessageBody alloc] initWithData:imagedata displayName:@"pic"];
+            [self sendMessageWithBody:body ext:nil];
+        }
+        [weakAlert touchesBegan:nil withEvent:nil];
+    }];
 }
 
 - (void)_sendLocationAction:(CLLocationCoordinate2D)aCoord

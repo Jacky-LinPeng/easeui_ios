@@ -68,5 +68,6 @@ Pod::Spec.new do |s|
     s.dependency 'EMVoiceConvert', '0.1.0'
     s.dependency 'OpenAISwift'
     s.dependency 'lottie-ios'
+    s.dependency 'SDWebImage'
 
 end

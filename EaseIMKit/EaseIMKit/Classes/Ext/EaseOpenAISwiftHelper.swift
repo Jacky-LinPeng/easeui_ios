@@ -68,7 +68,7 @@ public class EaseOpenAISwiftHelper: NSObject {
     }
     
     @available(iOS 13.0.0, *)
-    func createImage(query: String, completion: @escaping APIResult) {
+    @objc public func createImage(query: String, completion: @escaping APIResult) {
         // 个人apikey有数据，买的gpt4 apikey没数据
         openAPI.sendImages(with: query, numImages: 1, size: .size256) { result in // Result<OpenAI, OpenAIError>
             switch result {

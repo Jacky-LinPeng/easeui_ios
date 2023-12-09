@@ -31,6 +31,11 @@ typedef NS_ENUM(NSInteger, EMChatToolBarComponentType) {
 - (void)chatToolBarLocationAction;
 @end
 
+@interface EaseChatViewController (ChatToolBarAI)
+
+- (void)chatToolBarAIAction;
+@end
+
 @interface EaseChatViewController (ChatToolBarFileOpen) <UIDocumentPickerDelegate>
 
 - (void)chatToolBarFileOpenAction;

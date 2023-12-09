@@ -11,12 +11,13 @@
 #import "UIColor+EaseUI.h"
 #import "EMChatMessage+EaseUIExt.h"
 #import <EaseIMKit/EaseIMKit-Swift.h>
+#import "EaseChatViewController.h"
+#import <SDWebImage/SDWebImage.h>
 
 #define kTextViewMinHeight 32
 #define kTextViewMaxHeight 80
 #define kIconwidth 22
 #define kModuleMargin 10
-
 @interface EMChatBar()<UITextViewDelegate>
 
 @property (nonatomic) CGFloat version;
